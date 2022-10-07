@@ -38,7 +38,7 @@ public class Communication : MonoBehaviour
         {
             if (Stream.DataAvailable)
             {
-                ReceivedBuffer = new byte[1500];
+                ReceivedBuffer = new byte[1024];
 
                 Stream.Read(ReceivedBuffer, 0, ReceivedBuffer.Length);
                 string Message = Encoding.UTF8.GetString(ReceivedBuffer, 0, ReceivedBuffer.Length);
@@ -59,11 +59,15 @@ public class Communication : MonoBehaviour
                 int num = (31 - x) + z * 32;
                 if (BallState[x + z * 32] == '1')
                 {
-                    Balls[num].transform.position = new Vector3(Balls[num].transform.position.x, 0, Balls[num].transform.position.z);
+                    //Balls[num].transform.position = new Vector3(Balls[num].transform.position.x, 0, Balls[num].transform.position.z);
+                    Balls[num].transform.GetChild(0).transform.gameObject.SetActive(true);
+                    Balls[num].transform.GetChild(1).transform.gameObject.SetActive(false);
                 }
                 else
                 {
-                    Balls[num].transform.position = new Vector3(Balls[num].transform.position.x, -0.18f, Balls[num].transform.position.z);
+                    Balls[num].transform.GetChild(0).transform.gameObject.SetActive(false);
+                    Balls[num].transform.GetChild(1).transform.gameObject.SetActive(true);
+                    //Balls[num].transform.position = new Vector3(Balls[num].transform.position.x, -0.18f, Balls[num].transform.position.z);
                 }
             }
         }
